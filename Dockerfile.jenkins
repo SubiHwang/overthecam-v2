@@ -17,7 +17,7 @@ RUN curl -L "https://github.com/docker/compose/releases/download/v2.23.0/docker-
     chmod +x /usr/local/bin/docker-compose
 
 # jenkins 사용자를 docker 그룹에 추가 + 호스트의 docker 그룹 GID와 맞추기
-RUN groupadd -g 999 docker || groupmod -g 999 docker && \
+RUN groupadd -g 988 docker || groupmod -g 988 docker && \
     usermod -aG docker jenkins
 
 # jenkins 사용자로 다시 전환
