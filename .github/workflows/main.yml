@@ -18,4 +18,4 @@ jobs:
       - name: Trigger Jenkins CD
         if: success()  # 테스트 성공 시만 실행
         run: |
-          curl -X POST "http://3.144.160.173:8080/job/overthecam-main/build?token=jenkins-main-trigger-token"
+          curl -v -X POST "http://3.144.160.173:8080/job/overthecam-main/build?token=jenkins-main-trigger-token"
