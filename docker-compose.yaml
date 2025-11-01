@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  # 1. Jenkins
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # 호스트의 Docker 소켓 마운트
+    networks:
+      - app-network
+
+volumes:
+  jenkins_home:
+
+networks:
+  app-network:
+    driver: bridge
