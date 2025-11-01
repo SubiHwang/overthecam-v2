@@ -1,0 +1,21 @@
+name: CI
+
+# 워크플로 트리거
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # 소스 코드 체크아웃
+      - uses: actions/checkout@v4
+
+      - name: Trigger Jenkins CD
+        if: success()  # 테스트 성공 시만 실행
+        run: |
+          curl -X POST "http://3.144.160.173:8080/job/overthecam-main/build?token=jenkins-main-trigger-token"
