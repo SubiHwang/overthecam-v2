@@ -16,6 +16,18 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Trigger Jenkins CD
-        if: success()  # 테스트 성공 시만 실행
+        if: success()
+        env:
+          JENKINS_URL: http://3.144.160.173:8080
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+          JOB_NAME: overthecam-main
+          JOB_TOKEN: ${{ secrets.JENKINS_JOB_TOKEN }}
         run: |
-          curl -v -X POST "http://3.144.160.173:8080/job/overthecam-main/build?token=11db4a625af6136aba1079b8e3459ad816"
+          # Crumb 받아오기
+          CRUMB=$(curl -s -u "$JENKINS_USER:$JENKINS_API_TOKEN" "$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
+
+          # Jenkins 빌드 트리거
+          curl -v -X POST -u "$JENKINS_USER:$JENKINS_API_TOKEN" \
+            "$JENKINS_URL/job/$JOB_NAME/build?token=$JOB_TOKEN" \
+            -H "$CRUMB"
