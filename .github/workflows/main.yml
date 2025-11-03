@@ -18,7 +18,7 @@ jobs:
       - name: Trigger Jenkins CD
         if: success()
         env:
-          JENKINS_URL: http://3.144.160.173:8080
+          JENKINS_URL: https://jenkins.overthecam.site
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
           JOB_NAME: overthecam-main
