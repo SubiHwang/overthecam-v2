@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                     docker compose down
-                    docker compose up -d
+                    docker compose -p overthecam-v2 up -d
                 '''
             }
         }
