@@ -7,7 +7,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - /root/overthecam-v2/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data # SSL 인증서 저장 경로
       - caddy_config:/config
     networks:
