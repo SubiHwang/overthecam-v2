@@ -1,4 +1,10 @@
+# http -> https
+http://* {
+    redir https://{host}{uri} permanent
+}
+
 # Jenkins 
 jenkins.overthecam.site {
     reverse_proxy jenkins:8080
+    tls ghkdtnql@gmail.com
 }
