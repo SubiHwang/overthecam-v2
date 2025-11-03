@@ -11,7 +11,7 @@ services:
       - caddy_data:/data # SSL 인증서 저장 경로
       - caddy_config:/config
     networks:
-      - app-network
+      - network
 
 volumes:
   jenkins_home:
