@@ -5,7 +5,7 @@ http://* {
 
 # OpenVidu API
 openvidu.example.io {
-    reverse_proxy openvidu:7880
+    reverse_proxy host.docker.internal:7880
     tls ghkdtnql@gmail.com
 }
 
