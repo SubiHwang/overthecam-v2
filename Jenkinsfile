@@ -13,19 +13,11 @@ pipeline {
             }
         }
 
-        stage('Copy to Deploy Dir') {
-            steps {
-                sh 'cp -r ${WORKSPACE}/* /root/overthecam-v2/'
-            }
-        }
-
-        
         stage('Copy to Deploy Directory') {
             steps {
                 sh '''
                     mkdir -p ${DEPLOY_DIR}
-                    cp -r * ${DEPLOY_DIR}/
-                    cp .env ${DEPLOY_DIR}/ 2>/dev/null || true
+                    cp -r ${WORKSPACE}/. ${DEPLOY_DIR}/
                 '''
             }
         }
@@ -43,7 +35,7 @@ pipeline {
                 dir("${DEPLOY_DIR}") { 
                     sh '''
                         docker compose down
-                        docker compose -p overthecam-v2 up -d
+                        docker compose up -d
                     '''
                 }
             }
