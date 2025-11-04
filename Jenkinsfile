@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    environment {
+        DEPLOY_DIR = '/root/overthecam-v2' 
+    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -8,19 +12,40 @@ pipeline {
                     url: 'https://github.com/SubiHwang/overthecam-v2.git'
             }
         }
+
+        stage('Copy to Deploy Dir') {
+            steps {
+                sh 'cp -r ${WORKSPACE}/* /root/overthecam-v2/'
+            }
+        }
+
+        
+        stage('Copy to Deploy Directory') {
+            steps {
+                sh '''
+                    mkdir -p ${DEPLOY_DIR}
+                    cp -r * ${DEPLOY_DIR}/
+                    cp .env ${DEPLOY_DIR}/ 2>/dev/null || true
+                '''
+            }
+        }
         
         stage('Build') {
             steps {
-                sh 'docker compose build'
+                dir("${DEPLOY_DIR}") {  
+                    sh 'docker compose build'
+                }
             }
         }
         
         stage('Deploy') {
             steps {
-                sh '''
-                    docker compose down
-                    docker compose -p overthecam-v2 up -d
-                '''
+                dir("${DEPLOY_DIR}") { 
+                    sh '''
+                        docker compose down
+                        docker compose -p overthecam-v2 up -d
+                    '''
+                }
             }
         }
     }
