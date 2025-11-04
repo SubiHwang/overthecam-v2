@@ -2,6 +2,7 @@ services:
   # 1. Caddy (리버스 프록시 + SSL)
   caddy:
     image: caddy:latest
+    restart: unless-stopped
     container_name: caddy
     ports:
       - "80:80"
@@ -14,7 +15,6 @@ services:
       - app-network
 
 volumes:
-  jenkins_home:
   caddy_data:
   caddy_config:
 

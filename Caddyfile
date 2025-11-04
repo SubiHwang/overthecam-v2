@@ -3,6 +3,12 @@ http://* {
     redir https://{host}{uri} permanent
 }
 
+# OpenVidu API
+openvidu.example.io {
+    reverse_proxy openvidu:7880
+    tls ghkdtnql@gmail.com
+}
+
 # Jenkins 
 jenkins.overthecam.site {
     reverse_proxy jenkins:8080
