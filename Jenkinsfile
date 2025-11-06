@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DEPLOY_DIR = '/root/overthecam-v2' 
+        DEPLOY_DIR = '/opt/overthecam-v2' 
     }
     
     stages {
