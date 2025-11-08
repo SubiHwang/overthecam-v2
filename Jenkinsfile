@@ -12,15 +12,6 @@ pipeline {
                     url: 'https://github.com/SubiHwang/overthecam-v2.git'
             }
         }
-
-        stage('Copy to Deploy Directory') {
-            steps {
-                sh '''
-                    mkdir -p ${DEPLOY_DIR}
-                    cp -r ${WORKSPACE}/. ${DEPLOY_DIR}/
-                '''
-            }
-        }
         
         stage('Build') {
             steps {
