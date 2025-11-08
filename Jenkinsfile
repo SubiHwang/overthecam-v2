@@ -16,8 +16,8 @@ pipeline {
         stage('Copy to Deploy Directory') {
             steps {
                 sh '''
-                    sudo mkdir -p ${DEPLOY_DIR}
-                    sudo cp -r ${WORKSPACE}/. ${DEPLOY_DIR}/
+                    mkdir -p ${DEPLOY_DIR}
+                    cp -r ${WORKSPACE}/. ${DEPLOY_DIR}/
                 '''
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("${DEPLOY_DIR}") {  
-                    sh 'sudo docker compose build'
+                    sh 'docker compose build'
                 }
             }
         }
@@ -34,8 +34,8 @@ pipeline {
             steps {
                 dir("${DEPLOY_DIR}") { 
                     sh '''
-                        sudo docker compose down
-                        sudo docker compose up -d
+                        docker compose down
+                        docker compose up -d
                     '''
                 }
             }
